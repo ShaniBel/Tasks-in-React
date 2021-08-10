@@ -35,11 +35,31 @@ class NotesBoard extends React.Component {
         console.log(this.state.tasksArr);
     }
 
-    removeTask = (index) => {
+    taskDone = (index) => {
+        console.log(index);
+        let task = {...this.state.task}
+        task.isDone = true;
+        // this.setState({...task})
+        // console.log(this.state.task);
+
         let tasksArrTemp = [...this.state.tasksArr];
-        tasksArrTemp.splice(index, 1)
-        localStorage.setItem("tasks", JSON.stringify(tasksArrTemp))
+        tasksArrTemp.splice(index,1, task)
+        console.log(tasksArrTemp);
         this.setState({tasksArr : tasksArrTemp})
+
+        localStorage.setItem("tasks", JSON.stringify(tasksArrTemp))
+
+    }
+
+    deleteComleted = () => {
+        let tasksArrTemp = [...this.state.tasksArr];
+        for (let index = 0; index < tasksArrTemp.length; index++) { 
+            if(tasksArrTemp[index].isDone) {
+                tasksArrTemp.splice(index, 1)
+                localStorage.setItem("tasks", JSON.stringify(tasksArrTemp))
+                this.setState({tasksArr : tasksArrTemp})
+            }
+        }
     }
 
     render() {
@@ -55,12 +75,12 @@ class NotesBoard extends React.Component {
         
                 <div id="todo-del">
                     <input type="button" value="Delete All" id="todo-delall" />
-                    <input type="button" value="Delete Completed" id="todo-delcom" />
+                    <input type="button" onClick={this.deleteComleted} value="Delete Completed" id="todo-delcom" />
                 </div> 
                 
                 <div id="todo-list">
                     {this.state.tasksArr.map((task, index)=>{
-                       return  <Task key={index} index={index} task={task} removeTask={this.removeTask} />
+                       return  <Task key={index} index={index} task={task} taskDone={this.taskDone} />
                     })}
                 </div>
             </div>

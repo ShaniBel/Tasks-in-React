@@ -1,11 +1,11 @@
 import React from "react";
 import css from "../../index.css"
 
-function Task({index, task, removeTask}){
+function Task({index, task, taskDone}){
     return  (
         <div id="todo-add" className="todo-add taskdiv">
-            <p className="todo-item todo-row">{task.taskValue}</p>
-            <button className="todo-ok todo-item" id="ok" onClick={() => removeTask(index)}>X</button>
+            <p className="todo-item todo-row" id={task.isDone ? "done" : ""}>{task.taskValue}</p>
+            <button className="todo-ok todo-item" id="ok" onClick={() => taskDone(index)}>X</button>
         </div>
      )
 }

@@ -77,7 +77,7 @@
     text-decoration: line-through;
   }
   /* adds green backround + a line over text */
-  .todo-item.done {
+  .todo-item#done {
     background: #dcffd7;
     text-decoration: line-through;
   }
